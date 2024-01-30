@@ -10,9 +10,10 @@ const config = require("../config/config");
  *
  * @param {*} data
  * @param {*} exp
+ * @param {*} secret
  * @returns
  */
-exports.generateToken = (data, exp) => jwt.sign({ iss: data, exp }, config.JWT_SECRET);
+exports.generateToken = (data, exp, secret) => jwt.sign({ iss: data, exp }, secret ?? config.JWT_SECRET);
 
 /**
  *
@@ -25,6 +26,8 @@ exports.verifyToken = (authorization) => {
         const details = jwt.verify(authorization, config.JWT_SECRET)?.iss;
         return { status: true, data: JSON.parse(details) };
     } catch (error) {
-        return { status: false };
+        if (error.name !== "TokenExpiredError") return { status: false };
+        const details = jwt.decode(authorization)?.iss;
+        return { status: false, data: JSON.parse(details) };
     }
 };
