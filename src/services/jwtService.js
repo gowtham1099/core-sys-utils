@@ -8,12 +8,11 @@ const config = require("../config/config");
 
 /**
  *
- * @param {*} iss
+ * @param {*} data
  * @param {*} exp
- * @param {*} secret
  * @returns
  */
-exports.generateToken = (iss, exp, secret) => jwt.sign({ iss, exp }, secret ?? config.JWT_SECRET);
+exports.generateToken = (data, exp) => jwt.sign({ iss: data, exp }, config.JWT_SECRET);
 
 /**
  *
