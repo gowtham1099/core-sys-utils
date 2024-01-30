@@ -1,0 +1,35 @@
+{
+    "name": "core-sys-utils",
+    "version": "0.1.9",
+    "description": "Common Functions for Node JS applications",
+    "main": "app.js",
+    "keywords": [
+        "node",
+        "npm",
+        "utils",
+        "core",
+        "kong",
+        "s3",
+        "jwt",
+        "email"
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@fluent-org/logger": "^1.0.10",
+        "aws-sdk": "^2.1545.0",
+        "dotenv": "^16.4.1",
+        "ejs": "^3.1.9",
+        "google-auth-library": "^9.5.0",
+        "google-spreadsheet": "^4.1.1",
+        "jsonwebtoken": "^9.0.2",
+        "moment-timezone": "^0.5.44",
+        "multer": "^1.4.5-lts.1",
+        "multer-s3": "^3.0.1",
+        "nanoid": "^3.3.7",
+        "nodelastic": "^1.0.2"
+    }
+}
