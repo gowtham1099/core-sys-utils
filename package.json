@@ -11,7 +11,8 @@
         "kong",
         "s3",
         "jwt",
-        "email"
+        "email",
+        "mongodb"
     ],
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
