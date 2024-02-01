@@ -91,3 +91,13 @@ exports.dbUtils = require("./src/helpers/mongoDb");
  * This method helps to log error and exceptions
  */
 exports.logger = require("./src/helpers/logger");
+
+/**
+ * Symmetric encryption and decryption algoriths
+ */
+exports.symmetric = require("./src/services/symmetric");
+
+/**
+ * Asymmetric encryption and decryption algoriths
+ */
+exports.asymmetric = require("./src/services/asymmetric");
