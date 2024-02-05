@@ -4,6 +4,7 @@
  * Copyright (c) 2024
  */
 const crypto = require("crypto");
+const constants = require("../helpers/constants");
 
 /**
  * Create Private and public key pair
@@ -63,5 +64,43 @@ exports.decrypt = (privateKey, data) => {
         return decrypted.toString();
     } catch (error) {
         return error;
+    }
+};
+
+exports.encryptResponse = () => (res, req, next) => {
+    try {
+        let publicKey = constants.key_pair.public_key;
+        if (!publicKey) {
+            constants.key_pair = this.createKeyPair();
+            publicKey = constants.key_pair.public_key;
+        }
+        es._send = res.send;
+        res.send = (data) => {
+            const encryptedData = this.encrypt(publicKey, JSON.stringify(data));
+            res._send(encryptedData);
+        };
+        next();
+    } catch (error) {
+        next();
+    }
+};
+
+exports.decryptRequest = () => (res, req, next) => {
+    try {
+        const privateKey = constants.key_pair.private_key;
+        let encryptedData = "";
+
+        req.on("data", (chunk) => {
+            encryptedData += chunk;
+        });
+
+        req.on("end", () => {
+            // Decrypt the request body
+            req.body = JSON.parse(this.decrypt(privateKey, encryptedData));
+
+            next();
+        });
+    } catch (error) {
+        next();
     }
 };
