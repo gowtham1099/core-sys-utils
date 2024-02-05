@@ -150,6 +150,32 @@ const { s3Service } = require("core-sys-utils");
 
 ```js
 const { response } = require("core-sys-utils");
+
+/**
+ * Success response
+ * @param {*} res route response param
+ * @param {*} message // string
+ * @param {*} data // data object
+ * @param {*} code // status code
+ */
+response.success(res, message, data, code);
+
+/**
+ * Failure response
+ * @param {*} res route response param
+ * @param {*} message // string
+ * @param {*} code // status code
+ * @param {*} error // error object 
+ */
+response.failure(res, message, code, error);
+
+/**
+ * Crash response
+ * @param {*} res route response param
+ * @param {*} error // Exception error
+ */
+response.crash(res, error);
+
 ```
 
 #### Helpers
