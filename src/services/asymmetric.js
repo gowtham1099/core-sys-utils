@@ -5,6 +5,8 @@
  */
 const crypto = require("crypto");
 
+const self = this;
+
 /**
  * Create Private and public key pair
  * @returns
@@ -66,12 +68,19 @@ exports.decrypt = (privateKey, data) => {
     }
 };
 
-exports.encryptResponse = (publicKey) => (res, req, next) => {
+exports.encryptResponse = (publicKey) => (req, res, next) => {
     try {
-        res._send = res.send;
-        res.send = (data) => {
-            const encryptedData = this.encrypt(publicKey, JSON.stringify(data));
-            res._send(encryptedData);
+        const originalSend = res.send;
+
+        // Override the send method to encrypt the response
+        res.send = function (data) {
+            // Convert the response data to a string
+            const responseData = JSON.stringify(data);
+
+            const encryptedData = self.encrypt(publicKey, responseData);
+
+            // Set the encrypted data as the response
+            originalSend.call(res, JSON.stringify({ encrypted: encryptedData }));
         };
         next();
     } catch (error) {
@@ -79,11 +88,12 @@ exports.encryptResponse = (publicKey) => (res, req, next) => {
     }
 };
 
-exports.decryptRequest = (privateKey) => (res, req, next) => {
+exports.decryptRequest = (privateKey) => (req, res, next) => {
     try {
         if (req.headers["content-type"] === "application/json" && req.body && req.body.encrypted) {
-            req.body = JSON.parse(this.decrypt(privateKey, req.body.encrypted));
+            req.body = JSON.parse(self.decrypt(privateKey, req.body.encrypted));
         }
+        next();
     } catch (error) {
         next();
     }

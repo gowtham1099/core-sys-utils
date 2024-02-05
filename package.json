@@ -1,6 +1,6 @@
 {
     "name": "core-sys-utils",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Common Functions for Node JS applications",
     "main": "app.js",
     "keywords": [
