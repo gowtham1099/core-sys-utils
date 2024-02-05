@@ -101,3 +101,8 @@ exports.symmetric = require("./src/services/symmetric");
  * Asymmetric encryption and decryption algoriths
  */
 exports.asymmetric = require("./src/services/asymmetric");
+
+/**
+ * Express middleware validations
+ */
+exports.validation = require("./src/middlewares/validation");

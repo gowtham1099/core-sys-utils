@@ -24,6 +24,7 @@
         "aws-sdk": "^2.1545.0",
         "dotenv": "^16.4.1",
         "ejs": "^3.1.9",
+        "express-validator": "^7.0.1",
         "google-auth-library": "^9.5.0",
         "google-spreadsheet": "^4.1.1",
         "jsonwebtoken": "^9.0.2",
