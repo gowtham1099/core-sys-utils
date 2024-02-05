@@ -4,7 +4,6 @@
  * Copyright (c) 2024
  */
 const crypto = require("crypto");
-const constants = require("../helpers/constants");
 
 /**
  * Create secret key for symmetric algorithms
@@ -52,13 +51,8 @@ exports.decrypt = (secretKey, data) => {
     }
 };
 
-exports.encryptResponse = () => (res, req, next) => {
+exports.encryptResponse = (secretKey) => (res, req, next) => {
     try {
-        let secretKey = constants.secret_key;
-        if (!secretKey) {
-            constants.secret_key = this.createSecretKey();
-            secretKey = constants.secret_key;
-        }
         es._send = res.send;
         res.send = (data) => {
             const encryptedData = this.encrypt(secretKey, JSON.stringify(data));
@@ -70,21 +64,12 @@ exports.encryptResponse = () => (res, req, next) => {
     }
 };
 
-exports.decryptRequest = () => (res, req, next) => {
+exports.decryptRequest = (secretKey) => (res, req, next) => {
     try {
-        const secretKey = constants.secret_key;
-        let encryptedData = "";
-
-        req.on("data", (chunk) => {
-            encryptedData += chunk;
-        });
-
-        req.on("end", () => {
-            // Decrypt the request body
-            req.body = JSON.parse(this.decrypt(secretKey, encryptedData));
-
-            next();
-        });
+        if (req.headers["content-type"] === "application/json" && req.body && req.body.encrypted) {
+            req.body = JSON.parse(this.decrypt(secretKey, req.body.encrypted));
+        }
+        next();
     } catch (error) {
         next();
     }
