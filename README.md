@@ -40,6 +40,7 @@ Most of the tools need your credentials to work. You can either
 
 ```
 JWT_SECRET = "SecretKey0123456789XYZ"
+AUTH_TOKEN_VALIDITY = "1" // Days
 
 # ================ GOOGLE CLOUD ================== #
 GOOGLE_SERVICE_ACCOUNT_EMAIL = "sheets@gserviceaccount.com"

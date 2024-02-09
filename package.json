@@ -1,6 +1,6 @@
 {
     "name": "core-sys-utils",
-    "version": "0.2.5",
+    "version": "0.2.7",
     "description": "Common Functions for Node JS applications",
     "main": "index.js",
     "keywords": [
@@ -39,12 +39,15 @@
         "nodelastic": "^1.0.2"
     },
     "devDependencies": {
+        "@types/dotenv": "^8.2.0",
         "@types/ejs": "^3.1.5",
+        "@types/express": "^4.17.21",
+        "@types/express-validator": "^3.0.0",
         "@types/jsonwebtoken": "^9.0.5",
         "@types/mongoose": "^5.11.97",
         "@types/multer": "^1.4.11",
         "@types/multer-s3": "^3.0.3",
-        "@types/node": "^20.11.17",
+        "@types/nanoid": "^3.0.0",
         "typescript": "^5.3.3"
     }
 }
