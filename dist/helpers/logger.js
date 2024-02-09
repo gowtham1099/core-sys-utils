@@ -1,22 +1,44 @@
-/*
- * Created by Gowtham R
- * Created on Mon Jan 29 2024
- * Copyright (c) 2024
- */
-const { FluentClient } = require("@fluent-org/logger");
-const config = require("../config/config");
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.captureRequests = exports.error = exports.info = void 0;
+const logger_1 = require("@fluent-org/logger");
+const config_1 = __importDefault(require("../config/config"));
 /**
  * Initialize Fluent Client
  */
-const fluentClient = new FluentClient(config.ELASTIC_SEARCH.SERVICE_NAME, {
+const fluentClient = new logger_1.FluentClient(config_1.default.ELASTIC_SEARCH.SERVICE_NAME, {
     socket: {
-        host: config.ELASTIC_SEARCH.IP_ADDRESS,
+        host: config_1.default.ELASTIC_SEARCH.IP_ADDRESS,
         port: 9880,
         timeout: 3000, // 3 seconds
     },
 });
-
+/**
+ *
+ * @param {*} message
+ */
+const info = (message) => {
+    console.log(message);
+    fluentClient.emit("info", { microservice: config_1.default.ELASTIC_SEARCH.SERVICE_NAME, level: "info", message });
+};
+exports.info = info;
+/**
+ *
+ * @param {*} exception
+ */
+const error = (exception) => {
+    console.log(exception);
+    fluentClient.emit("error", {
+        microservice: config_1.default.ELASTIC_SEARCH.SERVICE_NAME,
+        level: "error",
+        message: exception?.message ?? "",
+        error: exception?.stack ?? "",
+    });
+};
+exports.error = error;
 /**
  * Middleware to log request and response
  * @param {*} req
@@ -27,11 +49,11 @@ const sendRequestLogsToElastic = (req, res, next) => {
     res.on("finish", () => {
         try {
             const logData = {
-                microservice: config.ELASTIC_SEARCH.SERVICE_NAME,
+                microservice: config_1.default.ELASTIC_SEARCH.SERVICE_NAME,
                 level: "requests",
                 date_and_time: new Date().toISOString(),
-                user_type: req.headers["x-consumer-username"]?.split("_")?.[0],
-                user_id: req.headers["x-consumer-username"]?.split("_")?.[1],
+                user_type: req.headers["x-consumer-username"].split("_")?.[0],
+                user_id: req.headers["x-consumer-username"].split("_")?.[1],
                 request: {
                     method: req.method,
                     path: req.baseUrl + req.path,
@@ -46,13 +68,13 @@ const sendRequestLogsToElastic = (req, res, next) => {
                 },
             };
             fluentClient.emit("requests", logData);
-        } catch (e) {
-            logger.error(e);
+        }
+        catch (e) {
+            (0, exports.info)(e.message);
         }
     });
     next();
 };
-
 /**
  * Set response body data into the response
  * @param {*} req
@@ -63,39 +85,16 @@ const setResponseBody = (req, res, next) => {
     const oldSend = res.send;
     res.send = (data) => {
         res.locals.body = data;
-        oldSend.call(res, data);
+        return oldSend.call(res, data);
     };
     next();
 };
-
-/**
- *
- * @param {*} message
- */
-exports.info = (message) => {
-    console.log(message);
-    fluentClient.emit("info", { microservice: config.ELASTIC_SEARCH.SERVICE_NAME, level: "info", message });
-};
-
-/**
- *
- * @param {*} exception
- */
-exports.error = (exception) => {
-    console.log(exception);
-    fluentClient.emit("error", {
-        microservice: config.ELASTIC_SEARCH.SERVICE_NAME,
-        level: "error",
-        message: exception?.message ?? "",
-        error: exception?.stack ?? "",
-    });
-};
-
 // Middleware to capture request and response logs
-exports.captureRequests = (req, res, next) => {
+const captureRequests = (req, res, next) => {
     // Set response body data to local field
     setResponseBody(req, res, () => {
         // Send request logs to elastic search
         sendRequestLogsToElastic(req, res, next);
     });
 };
+exports.captureRequests = captureRequests;

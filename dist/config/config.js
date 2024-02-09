@@ -1,15 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * Created by Gowtham R
  * Created on Mon Jan 29 2024
  * Copyright (c) 2024
  */
-require("dotenv").config();
-
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const { env } = process;
-
-module.exports = {
+const config = {
     JWT_SECRET: env?.JWT_SECRET,
     KONG_URL: env?.KONG_URL,
+    AUTH_TOKEN_VALIDITY: env?.AUTH_TOKEN_VALIDITY,
     EMAIL: {
         USERNAME: env?.ELASTICEMAIL_USERNAME,
         API_KEY: env?.ELASTICEMAIL_API_KEY,
@@ -32,3 +37,4 @@ module.exports = {
         SERVICE_NAME: env?.ES_SERVICE_NAME,
     },
 };
+exports.default = config;

@@ -5,33 +5,33 @@
  */
 
 /**
- * Simplify email sending and management through RESTful API endpoints provided by Express.js. 
- * 
+ * Simplify email sending and management through RESTful API endpoints provided by Express.js.
+ *
  * Seamlessly integrate email functionality into your applications and services with minimal effort.
  */
-exports.emailService = require("./src/services/emailService");
+export const emailService from "./src/services/emailService";
 
 /**
- * The JWT generation method is responsible for creating a secure and digitally signed JWT based on the provided payload and a secret key. JWTs are commonly used for authentication and authorization in web applications. 
- * 
+ * The JWT generation method is responsible for creating a secure and digitally signed JWT based on the provided payload and a secret key. JWTs are commonly used for authentication and authorization in web applications.
+ *
  * This process involves encoding a set of claims (information about the user or the application) into a JSON object, signing it with a secret key, and then encoding it into a compact, URL-safe string.
  */
-exports.jwtService = require("./src/services/jwtService");
+export const jwtService from "./src/services/jwtService";
 
 /**
  * Kong is an open-source API gateway and microservices management layer that enables you to manage, secure, and scale your APIs. Below are descriptions for some key methods and functionalities provided by Kong API Gateway
- * 
+ *
  * 1. Service Registration
- * 
+ *
  * 2. Route Configuration
- * 
+ *
  * 3. Plugin Integration
- * 
+ *
  * 4. Authentication and Security
- * 
+ *
  * 5. Monitoring and Analytics
  */
-exports.kongService = require("./src/services/kongService");
+export const kongService from "./src/services/kongService";
 
 /**
  * 1. S3 Upload File Middleware:
@@ -57,52 +57,52 @@ exports.kongService = require("./src/services/kongService");
 
  * Use Cases: Signed URLs are useful for scenarios where you want to provide temporary access to private files, such as for downloading a file after a user has authenticated.
  */
-exports.s3Service = require("./src/services/s3Service");
+export const s3Service from "./src/services/s3Service";
 
 /**
  * Helpers functions for javascript applications
  */
-exports.helpers = require("./src/helpers/utils");
+export const helpers from "./src/helpers/utils";
 
 /**
  * Client api response formats
  * Success, Failure, Crash methods.
  */
-exports.response = require("./src/helpers/response");
+export const response from "./src/helpers/response";
 
 /**
  * Request method to fetch api response
  */
-exports.apiRequest = require("./src/helpers/request");
+export const apiRequest from "./src/helpers/request";
 
 /**
  * This function helps to use mongodb related methods for development faster.
  */
-exports.dbUtils = require("./src/helpers/mongoDb");
+export const dbUtils from "./src/helpers/mongoDb";
 
 /**
  * 1. Request Logging Middleware
  * This middleware logs information about incoming requests, providing insights into the application's traffic.
- * 
+ *
  * 2. Info Message Logging
  * This method helps to log info and warning messages
- * 
+ *
  * 3. Error Message Logging
  * This method helps to log error and exceptions
  */
-exports.logger = require("./src/helpers/logger");
+export const logger from "./src/helpers/logger";
 
 /**
  * Symmetric encryption and decryption algoriths
  */
-exports.symmetric = require("./src/services/symmetric");
+export const symmetric from "./src/services/symmetric";
 
 /**
  * Asymmetric encryption and decryption algoriths
  */
-exports.asymmetric = require("./src/services/asymmetric");
+export const asymmetric from "./src/services/asymmetric";
 
 /**
  * Express middleware validations
  */
-exports.validation = require("./src/middlewares/validation");
+import * as validation from "./src/middlewares/validation";
