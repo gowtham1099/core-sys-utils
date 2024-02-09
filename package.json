@@ -1,5 +1,5 @@
 {
-    "name": "core-plugin",
+    "name": "core-sys-utils",
     "version": "0.2.5",
     "description": "Common Functions for Node JS applications",
     "main": "index.js",
