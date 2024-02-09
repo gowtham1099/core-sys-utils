@@ -107,4 +107,4 @@ import * as asymmetric from "./src/services/asymmetric";
  */
 import * as validation from "./src/middlewares/validation";
 
-export default { emailService, jwtService, kongService, s3Service, helpers, response, apiRequest, dbUtils, logger, symmetric, asymmetric, validation };
+export { emailService, jwtService, kongService, s3Service, helpers, response, apiRequest, dbUtils, logger, symmetric, asymmetric, validation };
