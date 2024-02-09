@@ -9,14 +9,14 @@
  *
  * Seamlessly integrate email functionality into your applications and services with minimal effort.
  */
-export const emailService from "./src/services/emailService";
+import * as emailService from "./src/services/emailService";
 
 /**
  * The JWT generation method is responsible for creating a secure and digitally signed JWT based on the provided payload and a secret key. JWTs are commonly used for authentication and authorization in web applications.
  *
  * This process involves encoding a set of claims (information about the user or the application) into a JSON object, signing it with a secret key, and then encoding it into a compact, URL-safe string.
  */
-export const jwtService from "./src/services/jwtService";
+import * as jwtService from "./src/services/jwtService";
 
 /**
  * Kong is an open-source API gateway and microservices management layer that enables you to manage, secure, and scale your APIs. Below are descriptions for some key methods and functionalities provided by Kong API Gateway
@@ -31,7 +31,7 @@ export const jwtService from "./src/services/jwtService";
  *
  * 5. Monitoring and Analytics
  */
-export const kongService from "./src/services/kongService";
+import * as kongService from "./src/services/kongService";
 
 /**
  * 1. S3 Upload File Middleware:
@@ -57,28 +57,28 @@ export const kongService from "./src/services/kongService";
 
  * Use Cases: Signed URLs are useful for scenarios where you want to provide temporary access to private files, such as for downloading a file after a user has authenticated.
  */
-export const s3Service from "./src/services/s3Service";
+import * as s3Service from "./src/services/s3Service";
 
 /**
  * Helpers functions for javascript applications
  */
-export const helpers from "./src/helpers/utils";
+import * as helpers from "./src/helpers/utils";
 
 /**
  * Client api response formats
  * Success, Failure, Crash methods.
  */
-export const response from "./src/helpers/response";
+import * as response from "./src/helpers/response";
 
 /**
  * Request method to fetch api response
  */
-export const apiRequest from "./src/helpers/request";
+import * as apiRequest from "./src/helpers/request";
 
 /**
  * This function helps to use mongodb related methods for development faster.
  */
-export const dbUtils from "./src/helpers/mongoDb";
+import * as dbUtils from "./src/helpers/mongoDb";
 
 /**
  * 1. Request Logging Middleware
@@ -90,19 +90,21 @@ export const dbUtils from "./src/helpers/mongoDb";
  * 3. Error Message Logging
  * This method helps to log error and exceptions
  */
-export const logger from "./src/helpers/logger";
+import * as logger from "./src/helpers/logger";
 
 /**
  * Symmetric encryption and decryption algoriths
  */
-export const symmetric from "./src/services/symmetric";
+import * as symmetric from "./src/services/symmetric";
 
 /**
  * Asymmetric encryption and decryption algoriths
  */
-export const asymmetric from "./src/services/asymmetric";
+import * as asymmetric from "./src/services/asymmetric";
 
 /**
  * Express middleware validations
  */
 import * as validation from "./src/middlewares/validation";
+
+export default { emailService, jwtService, kongService, s3Service, helpers, response, apiRequest, dbUtils, logger, symmetric, asymmetric, validation };
